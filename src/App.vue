@@ -1,58 +1,51 @@
 <template>
   <div id="app">
     {{ loading }}
-    <div style="border: 1px solid red">
-      the form will be placed here and will be shown only when creating or
-      editing. dont forget to perform its fields validation.
-    </div>
-    <button @click="addData">ADD data</button>
-    <table-data :data="products" />
+    <form-product v-if="formShow" class="uk-container uk-container-small"></form-product>
+    <br>
+    <button v-if="!formShow" @click="addData" class="uk-margin-large-left uk-button-small uk-button-primary uk-text-capitalize">add data</button>
+    <table-data :data="allProduct" class="uk-container uk-container-small"/>
   </div>
 </template>
 
 <script>
-import products from "./data/products.json";
+// import products from "./data/products.json";
+import FormProduct from "./components/Form.vue";
 import TableData from "./components/TableData.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "App",
 
   components: {
+    FormProduct,
     TableData,
+  },
+
+  computed: {
+      ...mapGetters(['allProduct']),
+      formShow () {
+          return this.$store.state.Products.formShow
+      },
   },
 
   data() {
     return {
-      products: [
-        {
-          id: 89,
-          name: "fender Vintera 70s telecaster",
-          stock: 20,
-          sku: "AA01",
-        },
-        {
-          id: 90,
-          name: "american Professional II stratocaster",
-          stock: 0,
-          sku: "AA02",
-        },
-        {
-          id: 12,
-          name: "american professional II jazzmaster® Left-Hand",
-          stock: 0,
-          sku: "AA03",
-        },
-      ],
+      products: [ ],
       loading: false,
     };
   },
 
   mounted() {
-    this.getData();
+    // this.getData();
   },
 
   methods: {
-    getData() {
+        ...mapActions(['formControl']),
+        addData() {
+            this.formControl()
+        }
+    /* getData() {
       // TO DO
       // change this to promise API, so the loading state will be shows on UI
       this.loading = true;
@@ -82,7 +75,7 @@ export default {
     deleteData(data) {
       // TO DO
       // destroy the data from the list
-    },
+    }, */
   },
 };
 </script>

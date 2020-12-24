@@ -11,6 +11,7 @@
     "parcel-bundler": "1.12.4",
     "pug": "3.0.0",
     "pug-plain-loader": "1.1.0",
+    "sass-loader": "^10.1.0",
     "uikit": "3.6.5",
     "vue": "^2.6.11",
     "vue-route": "1.5.1",
@@ -31,7 +32,10 @@
     "env": {
       "node": true
     },
-    "extends": ["plugin:vue/essential", "eslint:recommended"],
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
     "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
@@ -42,7 +46,11 @@
       "autoprefixer": {}
     }
   },
-  "browserslist": ["> 1%", "last 2 versions", "not ie <= 8"],
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
   "keywords": [],
   "description": ""
 }
