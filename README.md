@@ -16,3 +16,5 @@ npm run serve
 yarn instal
 yarn serve
 ```
+
+#### Thank you :)
