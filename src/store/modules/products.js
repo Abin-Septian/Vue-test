@@ -3,9 +3,16 @@ import axios from "axios";
 
 const state = {
     formShow: false,
+    formConfirm: false,
     loading: false,
     isUpdate:false,
-    products: []
+    products: [],
+    formProduct: {
+        id: '',
+        name: '',
+        sku: '',
+        stock: '',
+    }
 };
 
 const getters = {
@@ -25,11 +32,20 @@ const actions = {
     formControl: ({ commit }, context) => {
         commit('formControl', context);
     },
+    formConfirmation: ({ commit }, context) => {
+        commit('formConfirmation', context);
+    },
     isUpdate: ({ commit }, context) => {
         commit('isUpdate', context);
     },
     saveData: ({ commit }, payload) => {
         commit('saveData', payload);
+    },
+    editData: ({ commit }, idProduct) => {
+        commit('editData', idProduct);
+    },
+    deleteData: ({ commit }, idProduct) => {
+        commit('deleteData', idProduct);
     }
 };
 
@@ -45,17 +61,52 @@ const mutations = {
     formControl (state, context) {
         state.formShow = context
     },
+    formConfirmation (state, context) {
+        state.formConfirm = context
+    },
+    clearForm(){
+        state.formProduct.id = '';
+        state.formProduct.name = '';
+        state.formProduct.sku = '';
+        state.formProduct.stock = '';
+    },
     isUpdate (state, context) {
         state.isUpdate = context
     },
     saveData (state, payload) {
         if (payload.isUpdate == true){
-            // var idx = state.products.findIndex(product => product.id === payload.formProduct.id)
-
-            console.log(payload.formProduct.id)
+            state.products = [
+                ...state.products.filter(element => element.id !== payload.formProduct.id),
+                payload.formProduct
+             ]
         } else {
             state.products.push(payload.formProduct);
         }
+    },
+    editData (state, idProduct) {
+        const item = state.products.find(item => item.id === idProduct);
+
+        state.formProduct.id = item.id;
+        state.formProduct.name = item.name;
+        state.formProduct.sku = item.sku;
+        state.formProduct.stock = item.stock;
+    },
+    deleteData (state, idProduct) {
+        const i = state.products.map(item => item.id).indexOf(idProduct);
+        
+        state.products.splice(i, 1);
+    },
+    bindId (state, value) {
+        state.products.formProduct.id = value
+    },
+    bindName (state, value) {
+        state.products.formProduct.name = value
+    },
+    bindSKU (state, value) {
+        state.products.formProduct.sku = value
+    },
+    bindStock (state, value) {
+        state.products.formProduct.stock = value
     }
 };
 

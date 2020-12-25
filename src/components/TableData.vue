@@ -15,11 +15,11 @@
                 td
                     button.uk-button-small.uk-button-primary.uk-margin-small-right(
                     type="button",
-                    @click="edit()"
+                    @click="edit(item.id)"
                     ) Edit
                     button.uk-button-small.uk-button-danger.uk-margin-small-right(
                     type="button",
-                    @click="deleteData()"
+                    @click="deleteData(item.id)"
                     ) Delete
 </template>
 
@@ -32,13 +32,17 @@ export default {
         ...mapGetters(['allProduct']),
     },
     methods: {
-        ...mapActions(['formControl', 'isUpdate']),
-        edit() {
+        ...mapActions(['formControl', 'formConfirmation', 'isUpdate', 'editData']),
+        edit(idProduct) {
             this.isUpdate(true)
             this.formControl(true)
+            this.formConfirmation(false)
+            this.editData(idProduct)
         },
-        deleteData(){
+        deleteData(idProduct){
             this.formControl(false)
+            this.editData(idProduct)
+            this.formConfirmation(true)
         },
     }
 };
