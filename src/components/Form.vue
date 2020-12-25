@@ -1,10 +1,10 @@
 <template lang="pug">
 .uk-margin-top.uk-card.uk-card-default.uk-card-body 
-    form(@keyup.enter="save" @keyup.esc="cancel")
+    form
         fieldset.uk-fieldset
             .uk-margin
                 label ID
-                input.uk-input(type="number" v-model="formProduct.id")
+                input.uk-input(type="number" v-model="formProduct.id" :disabled="isUpdate")
             .uk-margin
                 label Name
                 input.uk-input(type="text" v-model="formProduct.name")
