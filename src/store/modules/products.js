@@ -1,27 +1,11 @@
+
+import axios from "axios";
+
 const state = {
     formShow: false,
     loading: false,
     isUpdate:false,
-    products: [
-        {
-            id: 89,
-            name: "fender Vintera 70s telecaster",
-            stock: 20,
-            sku: "AA01"
-        },
-        {
-            id: 90,
-            name: "american Professional II stratocaster",
-            stock: 0,
-            sku: "AA02"
-        },
-        {
-            id: 12,
-            name: "american professional II jazzmaster® Left-Hand",
-            stock: 0,
-            sku: "AA03"
-        }
-    ]
+    products: []
 };
 
 const getters = {
@@ -29,6 +13,15 @@ const getters = {
 };
 
 const actions = {
+    async getProducts({ commit }) {
+        await axios.get('/products.json', 
+        {
+            baseURL: window.location.origin
+        })
+        .then(response => {
+            commit('setProducts', response.data)
+        })
+    },
     formControl: ({ commit }, context) => {
         commit('formControl', context);
     },
@@ -41,6 +34,14 @@ const actions = {
 };
 
 const mutations = {
+    setProducts (state, post) {
+        state.loading = true;
+
+        setTimeout(() => {
+            state.products = post;
+            state.loading = false;
+        }, 2000);
+    },
     formControl (state, context) {
         state.formShow = context
     },

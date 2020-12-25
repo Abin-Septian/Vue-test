@@ -1,6 +1,6 @@
 <template lang="pug">
 .uk-margin-top.uk-card.uk-card-default.uk-card-body
-    table.uk-table.uk-table-responsive.uk-table-divider.uk-table-striped
+    table.uk-table.uk-table-divider.uk-table-striped
         thead
             tr
                 th #
