@@ -3,3 +3,6 @@ dist/
 .firebaserc
 firebase.json
 package-lock.json
+.github/
+.codesandbox/
+.firebase/
