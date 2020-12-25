@@ -1,6 +1,7 @@
 const state = {
     formShow: false,
     loading: false,
+    isUpdate:false,
     products: [
         {
             id: 89,
@@ -28,14 +29,32 @@ const getters = {
 };
 
 const actions = {
-    formControl (context) {
-        context.commit('formControl')
+    formControl: ({ commit }, context) => {
+        commit('formControl', context);
+    },
+    isUpdate: ({ commit }, context) => {
+        commit('isUpdate', context);
+    },
+    saveData: ({ commit }, payload) => {
+        commit('saveData', payload);
     }
 };
 
 const mutations = {
-    formControl (state) {
-        state.formShow = !state.formShow
+    formControl (state, context) {
+        state.formShow = context
+    },
+    isUpdate (state, context) {
+        state.isUpdate = context
+    },
+    saveData (state, payload) {
+        if (payload.isUpdate == true){
+            // var idx = state.products.findIndex(product => product.id === payload.formProduct.id)
+
+            console.log(payload.formProduct.id)
+        } else {
+            state.products.push(payload.formProduct);
+        }
     }
 };
 

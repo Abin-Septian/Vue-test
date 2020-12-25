@@ -6,28 +6,40 @@
                 th #
                 th Name
                 th SKU
-                th Action (Delete / Edit)
+                th Action
         tbody
-            tr(v-for="(item, index) in data", v-bind:key="index")
+            tr(v-for="(item, index) in allProduct", v-bind:key="index")
                 td {{ item.id }}
                 td.uk-text-capitalize {{ item.name }}
                 td {{ item.sku }}
                 td
                     button.uk-button-small.uk-button-primary.uk-margin-small-right(
                     type="button",
-                    @click=""
+                    @click="edit()"
                     ) Edit
                     button.uk-button-small.uk-button-danger.uk-margin-small-right(
                     type="button",
-                    @click=""
-            ) Delete
+                    @click="deleteData()"
+                    ) Delete
 </template>
 
 <script>
-    export default {
-        name: "",
-        props: {
-            data: null,
+import { mapActions, mapGetters } from "vuex";
+
+export default {
+    name: "",
+    computed: {
+        ...mapGetters(['allProduct']),
+    },
+    methods: {
+        ...mapActions(['formControl', 'isUpdate']),
+        edit() {
+            this.isUpdate(true)
+            this.formControl(true)
         },
-    };
+        deleteData(){
+            this.formControl(false)
+        },
+    }
+};
 </script>
